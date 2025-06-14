@@ -9,7 +9,6 @@ int width;
 void PrintArray(char array[height][width]);
 void RevealBomb(char map[height][width],char tempMap[height][width]);
 void SaveMap(char *filename, char Map[height][width]);
-char GetSelect(int row, int column,char map[height][width]);
 void GenerateMap(int mine,char map[height][width]);
 void Reveal(int row, int col, char map[height][width], char tempMap[height][width], bool visited[height][width]);
 
@@ -115,7 +114,7 @@ void Reveal(int row, int col, char map[height][width], char tempMap[height][widt
 
     visited[row][col] = true;
 
-    char value = GetSelect(row, col, map);
+    char value = map[row][col];
     tempMap[row][col] = value;
 
     if (value == '0') 

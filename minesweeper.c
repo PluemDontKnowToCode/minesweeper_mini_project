@@ -66,12 +66,16 @@ int main(int argc, char *argv[])
             {
                 mine--;
                 if(mine == 0)
+                {
+                    isAlive = false;
                     break;
+                }
             }
         }
         PrintArray(tempMap);
     }
-    if(!isAlive)
+    
+    if(mine != 0)
         printf("You lose");
     else
         printf("You Win");

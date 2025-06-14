@@ -6,11 +6,13 @@
 
 int height;
 int width;
+
 void PrintArray(char array[height][width]);
 void RevealBomb(char map[height][width],char tempMap[height][width]);
 void SaveMap(char *filename, char Map[height][width]);
 void GenerateMap(int mine,char map[height][width]);
 void Reveal(int row, int col, char map[height][width], char tempMap[height][width], bool visited[height][width]);
+char GetSelect(int row, int column,char map[height][width]);
 
 int main(int argc, char *argv[]) 
 {
@@ -114,7 +116,7 @@ void Reveal(int row, int col, char map[height][width], char tempMap[height][widt
 
     visited[row][col] = true;
 
-    char value = map[row][col];
+    char value = GetSelect(row, col, map);
     tempMap[row][col] = value;
 
     if (value == '0') 
@@ -128,6 +130,34 @@ void Reveal(int row, int col, char map[height][width], char tempMap[height][widt
             }
         }
     }
+}
+char GetSelect(int row, int column,char map[height][width])
+{
+    if(map[row][column] == '*')
+    {
+        return '*';
+    }
+    int op = 0;
+    for(int i = -1;i <= 1;i++)
+    {
+        for(int j = -1;j <= 1;j++)
+        {
+            if(i == 0 && j == 0)
+                continue;
+            int newX = row + i;
+            int newY = column + j;
+
+            if(newX < 0 || newX >= height || newY < 0 || newY >= width)
+            {
+                continue;
+            }
+            if(map[newX][newY] == '*')
+            {
+                op++;
+            }
+        }
+    }
+    return op + 48;
 }
 void GenerateMap(int mine,char map[height][width])
 {
